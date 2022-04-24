@@ -1,0 +1,172 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录界面"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "主页"
+			}
+		},
+		{
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "业主"
+			}
+		},
+		{
+			"path": "pages/worker/worker",
+			"style": {
+				"navigationBarTitleText": "员工"
+			}
+		},
+		{
+			"path": "pages/admin/admin",
+			"style": {
+				"navigationBarTitleText": "管理员"
+			}
+		},
+		{
+			"path": "pages/notic/notic",
+			"style": {
+				"navigationBarTitleText": "信息发布"
+			}
+		},
+		{
+			"path": "pages/document/document",
+			"style": {
+				"navigationBarTitleText": "技术资料"
+			}
+		},
+		{
+			"path": "pages/mydask/mydask",
+			"style": {
+				"navigationBarTitleText": "本组任务"
+			}
+		},
+		{
+			"path": "pages/record/record",
+			"style": {
+				"navigationBarTitleText": "考勤记录"
+			}
+		},
+		{
+			"path": "pages/report/report",
+			"style": {
+				"navigationBarTitleText": "问题申报"
+			}
+		},
+		{
+			"path": "pages/check/check",
+			"style": {
+				"navigationBarTitleText": "年审"
+			}
+		},
+		{
+			"path": "pages/insurance/insurance",
+			"style": {
+				"navigationBarTitleText": "保险"
+			}
+		},
+		{
+			"path": "pages/contract/contract",
+			"style": {
+				"navigationBarTitleText": "合同"
+			}
+		},
+		{
+			"path": "pages/dailysecurity/dailysecurity",
+			"style": {
+				"navigationBarTitleText": "日常维保"
+			}
+		},
+		{
+			"path": "pages/dailysecurity/singledaysecure",
+			"style": {
+				"navigationBarTitleText": "维保提交"
+			}
+		},
+		{
+			"path": "pages/fix/fix",
+			"style": {
+				"navigationBarTitleText": "维修整改"
+			}
+		},
+		{
+			"path": "pages/dailysecurity/security-upload",
+			"style": {
+				"navigationBarTitleText": "提交上传"
+			}
+		},
+		{
+			"path": "pages/fix/singlefix",
+			"style": {
+				"navigationBarTitleText": "整改详情"
+			}
+		},
+		{
+			"path": "pages/fix/fix-upload",
+			"style": {
+				"navigationBarTitleText": "整改上传"
+			}
+		},
+		{
+			"path": "pages/document/inputbrand",
+			"style": {
+				"navigationBarTitleText": "品牌资料上传"
+			}
+		},
+		{
+			"path": "pages/admin/changeID",
+			"style": {
+				"navigationBarTitleText": "修改账号"
+			}
+		},
+		{
+			"path": "pages/admin/createID",
+			"style": {
+				"navigationBarTitleText": "新增账号"
+			}
+		}
+		
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"fontSize":"30rpx",
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/index/index",
+			// "iconPath": "static/image/icon_component.png",
+			// "selectedIconPath": "static/image/icon_component_HL.png",
+			"text": "主页"
+			
+		}, {
+			"pagePath": "pages/check/check",
+			// "iconPath": "static/image/icon_API.png",
+			// "selectedIconPath": "static/image/icon_API_HL.png",
+			"text": "年审"
+		},{
+			"pagePath": "pages/insurance/insurance",
+			// "iconPath": "static/image/icon_API.png",
+			// "selectedIconPath": "static/image/icon_API_HL.png",
+			"text": "保险"
+		},{
+			"pagePath": "pages/contract/contract",
+			// "iconPath": "static/image/icon_API.png",
+			// "selectedIconPath": "static/image/icon_API_HL.png",
+			"text": "合同"
+		}]
+	}
+}
