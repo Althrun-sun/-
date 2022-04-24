@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/user/user",
+    "pages/worker/worker",
+    "pages/admin/admin",
+    "pages/notic/notic",
+    "pages/document/document",
+    "pages/mydask/mydask",
+    "pages/record/record",
+    "pages/report/report",
+    "pages/check/check",
+    "pages/insurance/insurance",
+    "pages/contract/contract",
+    "pages/dailysecurity/dailysecurity",
+    "pages/dailysecurity/singledaysecure",
+    "pages/fix/fix",
+    "pages/dailysecurity/security-upload",
+    "pages/fix/singlefix",
+    "pages/fix/fix-upload",
+    "pages/document/inputbrand",
+    "pages/admin/changeID",
+    "pages/admin/createID"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "fontSize": "30rpx",
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/check/check",
+        "text": "年审"
+      },
+      {
+        "pagePath": "pages/insurance/insurance",
+        "text": "保险"
+      },
+      {
+        "pagePath": "pages/contract/contract",
+        "text": "合同"
+      }
+    ]
+  },
+  "permission": {},
+  "usingComponents": {
+    "basics": "/pages/basics/home",
+    "components": "/pages/component/home"
+  }
+}

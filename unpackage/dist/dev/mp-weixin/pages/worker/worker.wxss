@@ -1,0 +1,15 @@
+
+.fix-judg-box{
+	height: 100%;width: 45%;margin-right: 20rpx;background-color: #DCDCDC;
+	margin-left: 20rpx;border-radius: 20rpx;position: relative;
+}
+.box-unfinish{
+	position: absolute;top: 80rpx;left: 30rpx;font-size: 40rpx;
+}
+.box-finish{
+	position: absolute;top: 130rpx;left: 30rpx;font-size: 40rpx;
+}
+.box-fail{
+	position: absolute;top: 180rpx;left: 30rpx;color: #E43D33;font-size: 40rpx;
+}
+

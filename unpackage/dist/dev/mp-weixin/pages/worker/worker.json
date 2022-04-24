@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "员工",
+  "usingComponents": {
+    "notic": "/components/notic",
+    "tabbar": "/components/tabbar"
+  }
+}
