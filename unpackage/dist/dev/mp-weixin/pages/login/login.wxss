@@ -1,0 +1,16 @@
+
+.inputbox{
+	border: 3rpx #555555 solid;
+	margin-top: 30rpx;
+	height: 50rpx;
+	width: 60%;
+	border-radius: 20rpx;
+}
+.placeclass{
+	font-size: 30rpx;
+	margin-left: 20rpx;
+}
+.radioclass{
+	font-size: 30rpx;
+}
+

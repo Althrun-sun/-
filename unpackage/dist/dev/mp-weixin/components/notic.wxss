@@ -1,0 +1,34 @@
+
+.urgen{
+	border: 6rpx  #E43D33 	solid;
+	border-radius: 10rpx;
+	width: 160rpx;
+	color: #E43D33;
+	font-weight: 600;
+}
+.notic{
+	border: 3rpx  #007AFF 	solid;
+	border-radius: 10rpx;
+	width: 130rpx;
+	color: #007AFF;
+}
+.statues-unfinished{
+	border: 3rpx  #E43D33 	solid;
+	border-radius: 10rpx;
+	width: 180rpx;
+	color: #E43D33;
+}
+.statues-finished{
+	border: 3rpx  #18BC37 solid;
+	border-radius: 10rpx;
+	width: 150rpx;
+	color:#18BC37 ;
+}
+.fail{
+	border: 6rpx  #E43D33 	solid;
+	border-radius: 10rpx;
+	width: 160rpx;
+	color: #E43D33;
+	font-weight: 600;
+}
+
