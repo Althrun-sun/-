@@ -64,11 +64,12 @@
 					console.log('管理员列表请求成功', res)
 					 console.log("res is"+ res.data)
 					 let temp =res.data;
+					 let templist=[]
 					 for(let item of temp)
 					 {
-						  this.picker.push(item.name)
+						  templist.push(item.name)
 					 }
-					
+					this.picker=templist
 					 
 				})
 				.catch(err => {
