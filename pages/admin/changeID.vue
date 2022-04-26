@@ -16,7 +16,7 @@
 			<view class="cu-form-group">
 				<view class="title">原账号</view>
 				<!-- <input placeholder="请输入姓名" name="input"></input> -->
-				<text class="text-grey" style="margin-left: 30rpx;">{{IDlist[0].accout}}</text>
+				<text class="text-grey" style="margin-left: 30rpx;">{{ex_name}}</text>
 			</view>
 			<!-- <view class="content">
 				<text class="cuIcon-btn text-green"></text>
@@ -25,22 +25,31 @@
 			</view> -->
 			<view class="cu-form-group">
 				<view class="title">姓名</view>
-				<input placeholder="请输入姓名" name="input"></input>
+				<input  v-model="db_name" class="inputbox" type="text"  placeholder="请输入姓名" placeholder-class="placeclass" focus="true"/>
+			<!-- 	<input placeholder="请输入姓名" name="input" v-model="name"></input> -->
 			</view>
 			<view class="cu-form-group">
 				<view class="title">账号</view>
-				<input placeholder="请输入账号" name="input"></input>
+				<input  v-model="db_ac" class="inputbox" type="text"  placeholder="请输入账号" placeholder-class="placeclass" focus="true"/>
+				<!-- <input placeholder="请输入账号" name="input" v-model="accout"></input> -->
 			</view>
 			<view class="cu-form-group">
 				<view class="title">密码</view>
-				<input placeholder="请输入密码" name="input"></input>
+				<input  v-model="db_psw" class="inputbox" type="text"  placeholder="请输入账号" placeholder-class="placeclass" focus="true"/>
+				<!-- <input placeholder="请输入密码" name="input" v-model="psw"></input> -->
 			</view>
-			
+			<view class="cu-form-group margin-top">
+				<view class="title">重新分派小组</view>
+				<picker @change="PickerChange" :value="index" :range="picker">
+					<view class="picker">
+						{{db_group}}
+					</view>
+				</picker>
+			</view>
 			<view class="box">
 				<view class="cu-bar btn-group">
-					<button class="cu-btn bg-green shadow-blur round lg">修改</button>
+					<button class="cu-btn bg-green shadow-blur round lg" @click="fix()">修改</button>
 				</view>
-				
 			</view>
 		</view>
 		
@@ -49,26 +58,80 @@
 </template>
 <script>
 	export default {
+		onShow() {
+			wx.cloud.database().collection('group').get()
+				.then(res => {
+					console.log('管理员列表请求成功', res)
+					 console.log("res is"+ res.data)
+					 let temp =res.data;
+					 for(let item of temp)
+					 {
+						  this.picker.push(item.name)
+					 }
+					
+					 
+				})
+				.catch(err => {
+					console.log('管理员列表请求失败', err)
+				})
+			
+			uni.getStorage({
+					key: "change_id",
+					success: (res) => {
+						this.db_id = res.data
+						console.log("the id is"+this.db_id)
+					}
+				})
+			uni.getStorage({
+					key: "change_ac",
+					success: (res) => {
+						this.db_ac = res.data
+						
+						console.log("the ac is"+this.db_ac)
+					}
+				})
+			uni.getStorage({
+					key: "change_name",
+					success: (res) => {
+						this.db_name = res.data
+						this.ex_name=res.data
+						console.log("the ac is"+this.db_name)
+					}
+					
+				})
+			uni.getStorage({
+					key: "change_psw",
+					success: (res) => {
+						this.db_psw = res.data
+						console.log("the ac is"+this.db_psw)
+					}
+				})
+				uni.getStorage({
+						key: "change_group",
+						success: (res) => {
+							this.db_group = res.data
+							console.log("the ac is"+this.db_group)
+						}
+					})
+			
+		},
 		data() {
 			return {
+				groupchoose:"",
+				picker: [],
+				ex_name:"",
+				db_id:"",
+				db_ac:"",
+				db_name:"",
+				db_psw:"",
+				db_group:"",
 				funclist:[
 					"新增账号","账号查看"
 				],
 				TabCur: 0,
 				scrollLeft: 0,
 				index: -1,
-				IDlist:[
-					{
-						name:"孙福杰",
-						accout:15521447381,
-						psw:123,
-					},
-					{
-						name:"黄宇勤",
-						accout:1123123381,
-						psw:123,
-					}
-				],
+			
 				
 				
 				modalName: null,
@@ -79,77 +142,30 @@
 		methods: {
 			PickerChange(e) {
 				this.index = e.detail.value
+				this.db_group=this.picker[this.index]
+				// console.log(this.groupchoose)
 			},
-			MultiChange(e) {
-				this.multiIndex = e.detail.value
-			},
+			fix(){
+				wx.cloud.database().collection('admin').doc(this.db_id).set({
+				  // data 传入需要局部更新的数据
+				  data: {
+				    
+						account:this.db_ac,
+						name:this.db_name,
+						psw:this.db_psw,
+						group:this.db_group
+				  },
+				  
+				  success: function(res) {
+				    console.log("fixed name" + this.db_name)
+				  }
+				})
+				uni.navigateTo({
+					url:'./admin'
+				})
+			}
 			
-			TimeChange(e) {
-				this.time = e.detail.value
-			},
-			DateChange(e) {
-				this.date = e.detail.value
-			},
-			RegionChange(e) {
-				this.region = e.detail.value
-			},
-			SwitchA(e) {
-				this.switchA = e.detail.value
-			},
-			SwitchB(e) {
-				this.switchB = e.detail.value
-			},
-			SwitchC(e) {
-				this.switchC = e.detail.value
-			},
-			SwitchD(e) {
-				this.switchD = e.detail.value
-			},
-			RadioChange(e) {
-				this.radio = e.detail.value
-			},
-			CheckboxChange(e) {
-				var items = this.checkbox,
-					values = e.detail.value;
-				for (var i = 0, lenI = items.length; i < lenI; ++i) {
-					items[i].checked = false;
-					for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
-						if (items[i].value == values[j]) {
-							items[i].checked = true;
-							break
-						}
-					}
-				}
-			},
-			ChooseImage() {
-				uni.chooseImage({
-					count: 4, //默认9
-					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-					sourceType: ['album'], //从相册选择
-					success: (res) => {
-						if (this.imgList.length != 0) {
-							this.imgList = this.imgList.concat(res.tempFilePaths)
-						} else {
-							this.imgList = res.tempFilePaths
-						}
-					}
-				});
-			},
-			ViewImage(e) {
-				uni.previewImage({
-					urls: this.imgList,
-					current: e.currentTarget.dataset.url
-				});
-			},
 			
-			tabSelect(e) {
-				this.TabCur = e.currentTarget.dataset.id;
-				this.scrollLeft = (e.currentTarget.dataset.id - 1) * 60
-				console.log(this.TabCur)
-			},
-			textareaAInput(e) {
-				this.textareaAValue = e.detail.value
-			},
 		}
 	}
 </script>
