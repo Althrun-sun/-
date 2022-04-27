@@ -8,13 +8,14 @@
 		<view class="box">
 			<view class="cu-bar btn-group">
 				<button class="cu-btn bg-green shadow-blur round" @click="clickcreateID()">新建账号</button>
-				<button class="cu-btn bg-blue shadow-blur round" @click="clickcreateGroup()" >新建小组</button>
+				<button class="cu-btn bg-blue shadow-blur round" @click="AddGroup()">新建小组</button>
 			</view>
 		</view>
-		<!--弹窗-->	
-				<modal v-if="showPop" title="输入新小组名" confirm-text="确定" cancel-text="取消" @cancel="cancelPop" @confirm="confirmPop"> 
-					<input type='text' placeholder="请输入密码" v-model="newgroupname" />
-				</modal>
+		<!--弹窗-->
+		<modal v-if="showPop" title="输入新小组名" confirm-text="确定" cancel-text="取消" @cancel="cancelPop"
+			@confirm="confirmPop">
+			<input type='text' placeholder="请输入密码" v-model="newgroupname" />
+		</modal>
 		<!-- 	<scroll-view scroll-x class="bg-white nav text-center">
 			<view class="cu-item" :class="index==TabCur?'text-blue cur':''" 
 			v-for="(item,index) in funclist" :key="index" @tap="tabSelect" :data-id="index">
@@ -37,11 +38,11 @@
 					<view v-for="(group,index) in grouplist" :key="index">
 						<view class="cu-bar bg-white solid-bottom margin-top">
 							<text class=" " style="position: absolute;left: 50rpx;size: 40rpx;font-weight: 600;"></text>
-							{{group}}
+							{{group.name}}
 							<view class="action">
 								<button class="cu-btn round bg-green shadow" style="background-color: #A5673F;"
-									@click="deletegroup(index)">
-									<text class="cuIcon-upload"></text> 删除</button>
+									@click="deletegroup(group.name)">
+									<text></text> 删除</button>
 							</view>
 						</view>
 						<view class="cu-list menu"
@@ -50,7 +51,7 @@
 
 
 							<view class="cu-item" :class="menuArrow?'arrow':''" v-for="(item,index) in IDlist"
-								:key="index" v-if="item.group==group">
+								:key="index" v-if="item.group==group.name">
 								<view class="content">
 									<text class="cuIcon-btn text-green"></text>
 									<text class="text-grey">{{item.name}}</text>
@@ -59,75 +60,39 @@
 								<view class="action">
 									<button class="cu-btn round bg-green shadow" style="background-color: #880000;"
 										@click="clickdelete(item._id)">
-										<text class="cuIcon-upload"></text> 删除</button>
+										<text></text> 删除</button>
 								</view>
 								<view class="action">
 									<button class="cu-btn round bg-green shadow"
 										@click="clickchangeID(item._id,item.account,item.name,item.psw,item.group)">
-										<text class="cuIcon-upload"></text> 编辑</button>
+										<text></text> 编辑</button>
 								</view>
 							</view>
 						</view>
 					</view>
 
-		
-		<!-- <view class="box">
+
+					<!-- <view class="box">
 			<view class="cu-bar btn-group">
 				<button class="cu-btn bg-green shadow-blur round lg" @click="clickcreateID()">新建账号</button>
 			</view>
 
 		</view> -->
 
-		</scroll-view>
+				</scroll-view>
 
-		</form>
-	</view>
+			</form>
+		</view>
 	</view>
 </template>
 <script>
 	export default {
-		onShow() {
-			// 取组
-			wx.cloud.database().collection('group').get()
-				.then(res => {
-					console.log('管理员列表请求成功', res)
-					console.log("res is" + res.data)
-					let temp = res.data;
-					let templist=[];
-					let tempIDlist=[];
-					for(let item of temp)
-					 {
-						  templist.push(item.name)
-					 }
-					this.grouplist=templist
-					for(let item1 of temp)
-					 {
-						  tempIDlist.push(item1._id)
-					 }
-					this.groupIDlist=tempIDlist
-				})
-				.catch(err => {
-					console.log('管理员列表请求失败', err)
-				})
-			console.log("getlist")
-			wx.cloud.database().collection('admin').get()
-				.then(res => {
-					console.log('管理员列表请求成功', res)
-					console.log(res.data)
-					let temp = res.data;
-					this.IDlist = temp;
-					// console.log("IDlist now is" + this.IDlist)
-				})
-				.catch(err => {
-					console.log('管理员列表请求失败', err)
-				})
-			console.log("launched")
-		},
+		//初始化数据
 		data() {
 			return {
-				groupIDlist:[],
-				newgroupname:"",
-				showPop:false, //弹窗
+				groupIDlist: [],
+				newgroupname: "",
+				showPop: false, //弹窗
 				grouplist: [],
 				groupnow: "none",
 				funclist: [
@@ -157,68 +122,152 @@
 				textareaBValue: ''
 			};
 		},
+		onShow() {
+			// 取组
+			wx.cloud.callFunction({
+					name: 'getData',
+					data: {
+						databaseName: 'group',
+						order: 'name'
+					}
+				})
+				.then(res => {
+					this.grouplist = res.result.data
+					console.log('分组结果', res.result.data)
+				})
+				.catch(err => {
+					console.log('分组结果请求失败', err)
+				})
+
+			wx.cloud.callFunction({
+					name: 'getData',
+					data: {
+						databaseName: 'admin',
+						order: 'name'
+					}
+				})
+				.then(res => {
+					console.log('管理员列表请求成功', res)
+					this.IDlist = res.result.data;
+				})
+				.catch(err => {
+					console.log('管理员列表请求失败', err)
+				})
+		},
+
 		methods: {
-			deletegroup(index){
-			
-					
-						 
-						    wx.cloud.database().collection('group')
-						    .doc(this.groupIDlist[index])
-						    //数据的唯一标识，也就是数据ID
-						    .remove().then(res=>{
-						      console.log(res);
-						    }).catch(err=>{
-						      console.log(err);
-						    })
-							uni.reLaunch({
-								url:'./admin'
-							})
-						
-					
-				
-			},
-			clickcreateGroup(){
-				this.showPop=!this.showPop;
-			},
-				//弹窗
-						confirmPop() { //确认
-							console.log('点击了确定')
-							this.showPop = false
+			//增加分组
+			AddGroup() {
+				wx.showModal({
+					cancelColor: 'cancelColor',
+					title: "新增分组",
+					placeholderText: "请输入新增分组的名称",
+					editable: true,
+					success(res) {
+						if (res.confirm == true) {
 							wx.cloud.database().collection('group').add({
-							  // data 字段表示需新增的 JSON 数据
-							  data: {
-							    // _id: 'todo-identifiant-aleatoire', // 可选自定义 _id，在此处场景下用数据库自动分配的就可以了
-							   
-								   name:this.newgroupname
-							   
-							  },
-							  success: function(res) {
-							    // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-							    console.log(res)
-								uni.navigateTo({
-									url:'admin'
-								})
-							  }
+								data: {
+									name: res.content
+								}
 							})
-						},
-						cancelPop() {  //取消
-							console.log('点击了取消')
-							this.showPop = false			  
-						},
+						}
+						console.log('新增分组信息', res)
+						uni.reLaunch({
+							url: './admin'
+						})
+					}
+				})
+
+			},
+			//删除分组
+			deletegroup(name) {
+				let that = this
+				wx.showModal({
+					cancelColor: 'cancelColor',
+					title: "是否确定删除",
+					content: "删除分组会删除对应员工，请确认所有员工已迁移到其他分组后再进行删除",
+					success(res) {
+						if (res.confirm == true) {
+							console.log('点击确认删除分组', res)
+							wx.cloud.callFunction({
+									name: 'removeData',
+									data: {
+										databaseName: 'group',
+										name: name,
+										flag: parseInt(1)
+									}
+								})
+								.then(res => {
+									console.log(res);
+								}).catch(err => {
+									console.log(err);
+								})
+							uni.reLaunch({
+								url: './admin'
+							})
+						} else if (res.cancel == true) {
+							console.log('点击取消', res)
+						}
+					}
+				})
+			},
+			clickcreateGroup() {
+				this.showPop = !this.showPop;
+			},
+			//弹窗
+			confirmPop() { //确认
+				console.log('点击了确定')
+				this.showPop = false
+				wx.cloud.database().collection('group').add({
+					// data 字段表示需新增的 JSON 数据
+					data: {
+						// _id: 'todo-identifiant-aleatoire', // 可选自定义 _id，在此处场景下用数据库自动分配的就可以了
+
+						name: this.newgroupname
+
+					},
+					success: function(res) {
+						// res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+						console.log(res)
+						uni.navigateTo({
+							url: 'admin'
+						})
+					}
+				})
+			},
+			cancelPop() { //取消
+				console.log('点击了取消')
+				this.showPop = false
+			},
 			// 删除
 			clickdelete(id) {
-					wx.cloud.database().collection('admin')
-					.doc(id)
-					//数据的唯一标识，也就是数据ID
-					.remove().then(res=>{
-					  console.log(res);
-					}).catch(err=>{
-					  console.log(err);
-					})
-					uni.reLaunch({
-						url:'./admin'
-					})
-											
+				wx.showModal({
+					cancelColor: 'cancelColor',
+					title: "是否确定删除",
+					content: "删除后数据不可恢复，您确定要删除该用户吗？",
+					success(res) {
+						if (res.confirm == true) {
+							console.log('点击确认删除用户', res)
+							wx.cloud.callFunction({
+								name: 'removeData',
+								data: {
+									databaseName: 'admin',
+									id: id,
+									flag: parseInt(2)
+								}
+							}).then(res => {
+								console.log(res);
+							}).catch(err => {
+								console.log(err);
+							})
+							uni.reLaunch({
+								url: './admin'
+							})
+						} else if (res.cancel == true) {
+							console.log('点击取消', res)
+						}
+					}
+				})
 			},
 			clickchangeID(id, ac, name_db, psw_db, group) {
 				uni.navigateTo({
@@ -254,7 +303,7 @@
 			PickerChange(e) {
 				this.index = e.detail.value
 			},
-			
+
 
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;

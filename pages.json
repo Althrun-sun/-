@@ -42,12 +42,7 @@
 				"navigationBarTitleText": "技术资料"
 			}
 		},
-		{
-			"path": "pages/mydask/mydask",
-			"style": {
-				"navigationBarTitleText": "本组任务"
-			}
-		},
+
 		{
 			"path": "pages/record/record",
 			"style": {
@@ -131,8 +126,43 @@
 			"style": {
 				"navigationBarTitleText": "新增账号"
 			}
+		},
+		{
+			"path": "pages/adminhome/adminhome",
+			"style": {
+				"navigationBarTitleText": "管理员首页"
+			}
+		},
+		{
+			"path":"pages/adminfunctions/checkplan/checkplan",
+			"style": {
+				"navigationBarTitleText": "年审安排"
+			}
+		},
+		{
+			"path":"pages/adminfunctions/elevatorDB/elevatorDB",
+			"style": {
+				"navigationBarTitleText": "数据库"
+			}
+		},
+		{
+			"path":"pages/adminfunctions/mission/mission",
+			"style": {
+				"navigationBarTitleText": "任务发布"
+			}
+		},
+		{
+			"path":"pages/adminfunctions/securityplan/securityplan",
+			"style": {
+				"navigationBarTitleText": "维保安排"
+			}
+		},
+		{
+			"path":"pages/adminfunctions/elevatorDB/newlift",
+			"style": {
+				"navigationBarTitleText": "新增电梯信息"
+			}
 		}
-		
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
