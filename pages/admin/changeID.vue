@@ -2,7 +2,7 @@
 	<view class="">
 		<view class="cu-bar bg-white margin-top solid-bottom">
 			<view class="action">
-				<text class="cuIcon-title text-orange"></text> 账号修改
+				<text class="cuIcon-title text-orange"></text> 电梯信息修改
 			</view>
 		</view>
 		<!-- 	<scroll-view scroll-x class="bg-white nav text-center">
