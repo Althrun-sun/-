@@ -7,7 +7,7 @@
 		</view>
 		<view class="box">
 			<view class="cu-bar btn-group">
-				<button class="cu-btn bg-green shadow-blur round" @click="createlift()">新建账号</button>
+				<button class="cu-btn bg-green shadow-blur round" @click="createlift()">新增电梯信息</button>
 			</view>
 		</view>
 		<!--弹窗-->	
@@ -46,12 +46,12 @@
 								</view>
 								<view class="action">
 									<button class="cu-btn round bg-green shadow" style="background-color: #880000;"
-										@click="clickdelete(item._id)">
+										@click="deletelift(item._id)">
 										<text class=""></text> 删除</button>
 								</view>
 								<view class="action">
 									<button class="cu-btn round bg-green shadow"
-										@click="clickchangeID(item._id)">
+										@click="changelift(item._id)">
 										<text class=""></text> 编辑</button>
 								</view>
 							</view>
@@ -111,6 +111,20 @@
 				uni.navigateTo({
 					url:'./newlift'
 				})
+			},
+			changelift(id){
+				console.log(id)
+				uni.navigateTo({
+					url:'./changelift'
+				})
+				uni.setStorage({
+					key:'changeliftID',
+					data:id
+				})
+				console.log("电梯修改id存储为"+id)
+			},
+			deletelift(id){
+				
 			}
 		}
 	}
