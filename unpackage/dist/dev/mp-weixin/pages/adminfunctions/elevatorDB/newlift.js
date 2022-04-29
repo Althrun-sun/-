@@ -189,11 +189,11 @@ var _default =
     catch(function (err) {
       console.log('管理员列表请求失败', err);
     });
-    console.log("getlist");
+
   },
   data: function data() {
     return {
-      paramout: {},
+
       // unit_name:"",
       // unit_locate:"",
       // unit_creditcode:"",
@@ -218,6 +218,7 @@ var _default =
       // icon_effectday:"",
       // project125_testday:"",
       // security_contractday:"",
+      paramout: {},
       param: [],
 
 

@@ -59,11 +59,11 @@
 				.catch(err => {
 					console.log('管理员列表请求失败', err)
 				})
-			console.log("getlist")
+			
 		},
 		data() {
 			return {
-				paramout:{},
+				
 				// unit_name:"",
 				// unit_locate:"",
 				// unit_creditcode:"",
@@ -88,6 +88,7 @@
 				// icon_effectday:"",
 				// project125_testday:"",
 				// security_contractday:"",
+				paramout:{},
 				param:[
 								
 				],

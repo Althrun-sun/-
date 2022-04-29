@@ -160,7 +160,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
-  onShow: function onShow() {var _this = this;
+  onLoad: function onLoad() {var _this = this;
+    // 加载等待
+    uni.showLoading({
+      title: "Loading" });
+
     // this引用有问题所以干脆放进去了
     uni.getStorage({
       key: 'changeliftID',
@@ -178,39 +182,53 @@ var _default =
         catch(function (err) {
           console.log('管理员列表请求失败', err);
         });
-        // 读取电梯指标中英文
-        wx.cloud.database().collection('lift_index').get().
-        then(function (res) {
-          console.log('电梯属性列表请求成功', res);
-          console.log("res is" + res.data);
-          var temp = res.data;
-          var templist = [];var _iterator = _createForOfIteratorHelper(
-          temp),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;)
-            {var item = _step.value;
 
-              for (var _i = 0, _Object$keys = Object.keys(item); _i < _Object$keys.length; _i++)
-              {var keyitem = _Object$keys[_i];
-                if (keyitem != '_id')
-                {
-                  var temobj = {};
-                  temobj['eng'] = keyitem;
-                  temobj['chi'] = item[keyitem];
-                  // console.log(temobj)
-                  templist.push(temobj);
-                }
-              }
-            }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
-          _this.param = templist;
-          _this.paramout = {
-            param: _this.param,
-            obj: _this.beforelift };
-
-          // console.log("templist"+ this.param)	
-        }).
-        catch(function (err) {
-          console.log('管理员列表请求失败', err);
-        });
       } });
+
+    setTimeout(
+    function () {
+
+      // 读取电梯指标中英文
+      wx.cloud.database().collection('lift_index').get().
+      then(function (res) {
+        console.log('电梯属性列表请求成功', res);
+        console.log("res is" + res.data);
+        var temp = res.data;
+        var templist = [];var _iterator = _createForOfIteratorHelper(
+        temp),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;)
+          {var item = _step.value;
+
+            for (var _i = 0, _Object$keys = Object.keys(item); _i < _Object$keys.length; _i++)
+            {var keyitem = _Object$keys[_i];
+              if (keyitem != '_id')
+              {
+                var temobj = {};
+                temobj['eng'] = keyitem;
+                temobj['chi'] = item[keyitem];
+                // console.log(temobj)
+                templist.push(temobj);
+              }
+            }
+          }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+        _this.param = templist;
+        _this.paramout = {
+          param: _this.param,
+          obj: _this.beforelift };
+
+        // console.log("templist"+ this.param)	
+      }).
+      catch(function (err) {
+        console.log('管理员列表请求失败', err);
+      });
+      uni.hideLoading();
+    },
+
+
+    2000);
+
+
+  },
+  onShow: function onShow() {
 
   },
   data: function data() {

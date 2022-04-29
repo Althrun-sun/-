@@ -170,7 +170,7 @@ var _default =
         name: 'security',
         color: 'mauve',
         cuIcon: 'formfill',
-        url: '../adminfunctions/elevatorDB/elevatorDB' },
+        url: '../adminfunctions/securityplan/securityplan' },
 
       {
         title: '年审排班',

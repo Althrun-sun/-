@@ -148,7 +148,7 @@
 		{
 			"path":"pages/adminfunctions/mission/mission",
 			"style": {
-				"navigationBarTitleText": "任务发布"
+				"navigationBarTitleText": "任务管理"
 			}
 		},
 		{
@@ -167,6 +167,18 @@
 			"path":"pages/adminfunctions/elevatorDB/changelift",
 			"style": {
 				"navigationBarTitleText": "修改电梯信息"
+			}
+		},
+		{
+			"path":"pages/adminfunctions/mission/newmission",
+			"style": {
+				"navigationBarTitleText": "任务发布"
+			}
+		},
+		{
+			"path":"pages/adminfunctions/mission/changemission",
+			"style": {
+				"navigationBarTitleText": "任务编辑"
 			}
 		}
 	],

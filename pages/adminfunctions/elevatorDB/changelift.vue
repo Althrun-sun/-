@@ -30,7 +30,11 @@
 </template>
 <script>
 	export default {
-		onShow() {
+		onLoad(){
+			// 加载等待
+			uni.showLoading({
+				title:"Loading"
+			})
 			// this引用有问题所以干脆放进去了
 			uni.getStorage({
 				key:'changeliftID',
@@ -48,40 +52,54 @@
 						.catch(err => {
 							console.log('管理员列表请求失败', err)
 						})	
-						// 读取电梯指标中英文
-						wx.cloud.database().collection('lift_index').get()
-							.then(res => {
-								console.log('电梯属性列表请求成功', res)
-								console.log("res is" + res.data)
-								let temp = res.data;
-								let templist=[];
-								for(let item of temp)
-								 {
-									 
-									for(var keyitem of Object.keys(item))
-									{
-										if(keyitem!='_id')
-										{
-											let temobj={}
-											temobj['eng']=keyitem
-											temobj['chi']=item[keyitem]
-											// console.log(temobj)
-											templist.push(temobj)
-										}
-									}
-								 }
-								this.param=templist
-								this.paramout={
-									param:this.param,
-									obj: this.beforelift
-								}
-								// console.log("templist"+ this.param)	
-							})
-							.catch(err => {
-								console.log('管理员列表请求失败', err)
-							});
+						
 				}
-			});		
+			});	
+			setTimeout(
+			()=>{
+				
+				// 读取电梯指标中英文
+				wx.cloud.database().collection('lift_index').get()
+					.then(res => {
+						console.log('电梯属性列表请求成功', res)
+						console.log("res is" + res.data)
+						let temp = res.data;
+						let templist=[];
+						for(let item of temp)
+						 {
+							 
+							for(var keyitem of Object.keys(item))
+							{
+								if(keyitem!='_id')
+								{
+									let temobj={}
+									temobj['eng']=keyitem
+									temobj['chi']=item[keyitem]
+									// console.log(temobj)
+									templist.push(temobj)
+								}
+							}
+						 }
+						this.param=templist
+						this.paramout={
+							param:this.param,
+							obj: this.beforelift
+						}
+						// console.log("templist"+ this.param)	
+					})
+					.catch(err => {
+						console.log('管理员列表请求失败', err)
+					});
+				uni.hideLoading();	
+			}
+			
+			
+			,2000)	
+			
+				
+		},
+		onShow() {
+			
 		},
 		data() {
 			return {

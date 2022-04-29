@@ -4,8 +4,8 @@
 			<image src="/static/componentBg.png" mode="widthFix" class="response"></image>
 			<view class="nav-list">
 				<navigator hover-class='none' :url="'/pages/component/' + item.name" class="nav-li" navigateTo :class="'bg-'+item.color"
-				 :style="[{animation: 'show ' + ((index+1)*0.2+1) + 's 1'}]" v-for="(item,index) in elements" :key="index">
-					<view class="nav-title" @click="toadmin(item.url)">{{item.title}}</view>
+				 :style="[{animation: 'show ' + ((index+1)*0.2+1) + 's 1'}]" v-for="(item,index) in elements" :key="index" @click="toadmin(item.url)">
+					<view class="nav-title" >{{item.title}}</view>
 					<view class="nav-name">{{item.name}}</view>
 					<text :class="'cuIcon-' + item.cuIcon"></text>
 				</navigator>

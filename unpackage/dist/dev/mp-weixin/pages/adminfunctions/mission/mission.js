@@ -125,14 +125,120 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/开发项目/电梯维保系统/电梯维保/pages/adminfunctions/mission/mission.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default =
+{
+  onShow: function onShow() {var _this = this;
+    // 取组
+    wx.cloud.database().collection('mission').get().
+    then(function (res) {
+      console.log('管理员列表请求成功', res);
+      console.log("res is" + res.data);
+      var temp = res.data;
+      _this.missionlist = temp;
+      console.log("templist" + _this.missionlist);
+    }).
+    catch(function (err) {
+      console.log('管理员列表请求失败', err);
+    });
+    console.log("getlist");
+
+  },
+  data: function data() {
+    return {
+      missionlist: [],
+
+      textareaAValue: '',
+      textareaBValue: '' };
+
+  },
+  methods:
+  {
+    createmission: function createmission() {
+      uni.navigateTo({
+        url: 'newmission' });
+
+    },
+    deletemission: function deletemission(id) {
+
+    },
+    changemission: function changemission(id, title, content) {
+      uni.setStorage({
+        key: "changemissionTile",
+        data: title });
+
+      uni.setStorage({
+        key: "changemissionID",
+        data: id });
+
+      uni.setStorage({
+        key: "changemissionContent",
+        data: content });
+
+      uni.navigateTo({
+        url: './changemission' });
+
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 
