@@ -42,13 +42,13 @@
 
 <script>
 	export default{
-		onLoad: function() {
-			  wx.cloud.callFunction({
-			    name: 'logincheck'
-			  }).then((res) => {
-				  console.log(res)
-			  })
-		},
+		// onLoad: function() {
+		// 	  wx.cloud.callFunction({
+		// 	    name: 'logincheck'
+		// 	  }).then((res) => {
+		// 		  console.log(res)
+		// 	  })
+		// },
 		data() {
 			return {
 				account:"",
@@ -86,7 +86,7 @@
 						// 	url:'../admin/admin'
 						// })
 						uni.navigateTo({
-							url:'../admin/admin'
+							url:'../adminhome/adminhome'
 						})
 					}
 					
