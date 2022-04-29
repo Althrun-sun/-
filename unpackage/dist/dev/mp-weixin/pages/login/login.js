@@ -180,13 +180,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
-  onLoad: function onLoad() {
-    wx.cloud.callFunction({
-      name: 'logincheck' }).
-    then(function (res) {
-      console.log(res);
-    });
-  },
+  // onLoad: function() {
+  // 	  wx.cloud.callFunction({
+  // 	    name: 'logincheck'
+  // 	  }).then((res) => {
+  // 		  console.log(res)
+  // 	  })
+  // },
   data: function data() {
     return {
       account: "",
@@ -224,7 +224,7 @@ var _default =
           // 	url:'../admin/admin'
           // })
           uni.navigateTo({
-            url: '../admin/admin' });
+            url: '../adminhome/adminhome' });
 
         }
 

@@ -1,1 +1,1 @@
-<view class="content"><button data-event-opts="{{[['tap',[['tryAdd',['$event']]]]]}}" bindtap="__e">尝试添加</button></view>
+<view>保险页面</view>

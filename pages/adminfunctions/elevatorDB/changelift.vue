@@ -35,6 +35,7 @@
 			uni.getStorage({
 				key:'changeliftID',
 				success: (res) => {
+					let that=this
 					this.liftID = res.data
 					console.log("电梯修改的ID读取 is that"+ this.liftID)
 					// 读取原ID信息
@@ -42,7 +43,7 @@
 					wx.cloud.database().collection('lift').doc(this.liftID).get()
 						.then(res => {
 							console.log('原电梯信息请求成功', res)	
-							this.beforelift=res.data	
+							that.beforelift=res.data	
 							})
 						.catch(err => {
 							console.log('管理员列表请求失败', err)
@@ -108,11 +109,17 @@
 			
 			
 			change(){
+				delete this.paramout.obj._openid;
+				delete this.paramout.obj._id;
+				console.log(this.paramout.obj)
 				console.log(this.paramout.obj)
 				wx.cloud.database().collection('lift').doc(this.liftID).update({
 				  		data:this.paramout.obj
 				   	}).then(res=>{
 				    	console.log(res)
+						uni.navigateTo({
+							url:'elevatorDB'
+						})
 				   	})
 			
 			

@@ -186,28 +186,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
+  //初始化数据
   data: function data() {
     return {
+      groupIDlist: [],
+      newgroupname: "",
+      showPop: false, //弹窗
+      grouplist: [],
+      groupnow: "none",
       funclist: [
       "新增账号", "账号查看"],
 
       TabCur: 0,
       scrollLeft: 0,
       index: -1,
-      IDlist: [
-      {
-        name: "孙福杰",
-        accout: 15521447381,
-        psw: 123 },
+      IDlist: [],
+      // IDlist:[
 
-      {
-        name: "黄宇勤",
-        accout: 1123123381,
-        psw: 123 }],
-
-
+      // ],
+      // [{
+      // 	name:"孙福杰",
+      // 	accout:15521447381,
+      // 	psw:123,
+      // },
+      // {
+      // 	name:"黄宇勤",
+      // 	accout:1123123381,
+      // 	psw:123,
+      // }]
 
 
       modalName: null,
@@ -215,71 +252,188 @@ var _default =
       textareaBValue: '' };
 
   },
+  onShow: function onShow() {var _this = this;
+    // 取组
+    wx.cloud.callFunction({
+      name: 'getData',
+      data: {
+        databaseName: 'group',
+        order: 'name' } }).
+
+
+    then(function (res) {
+      _this.grouplist = res.result.data;
+      console.log('分组结果', res.result.data);
+    }).
+    catch(function (err) {
+      console.log('分组结果请求失败', err);
+    });
+
+    wx.cloud.callFunction({
+      name: 'getData',
+      data: {
+        databaseName: 'admin',
+        order: 'name' } }).
+
+
+    then(function (res) {
+      console.log('管理员列表请求成功', res);
+      _this.IDlist = res.result.data;
+    }).
+    catch(function (err) {
+      console.log('管理员列表请求失败', err);
+    });
+  },
+
   methods: {
-    clickchangeID: function clickchangeID(account) {
-      uni.navigateTo(
-      {
+    //增加分组
+    AddGroup: function AddGroup() {
+      wx.showModal({
+        cancelColor: 'cancelColor',
+        title: "新增分组",
+        placeholderText: "请输入新增分组的名称",
+        editable: true,
+        success: function success(res) {
+          if (res.confirm == true) {
+            wx.cloud.database().collection('group').add({
+              data: {
+                name: res.content } });
+
+
+          }
+          console.log('新增分组信息', res);
+          uni.reLaunch({
+            url: './admin' });
+
+        } });
+
+
+    },
+    //删除分组
+    deletegroup: function deletegroup(name) {
+      var that = this;
+      wx.showModal({
+        cancelColor: 'cancelColor',
+        title: "是否确定删除",
+        content: "删除分组会删除对应员工，请确认所有员工已迁移到其他分组后再进行删除",
+        success: function success(res) {
+          if (res.confirm == true) {
+            console.log('点击确认删除分组', res);
+            wx.cloud.callFunction({
+              name: 'removeData',
+              data: {
+                databaseName: 'group',
+                name: name,
+                flag: parseInt(1) } }).
+
+
+            then(function (res) {
+              console.log(res);
+            }).catch(function (err) {
+              console.log(err);
+            });
+            uni.reLaunch({
+              url: './admin' });
+
+          } else if (res.cancel == true) {
+            console.log('点击取消', res);
+          }
+        } });
+
+    },
+    clickcreateGroup: function clickcreateGroup() {
+      this.showPop = !this.showPop;
+    },
+    //弹窗
+    confirmPop: function confirmPop() {//确认
+      console.log('点击了确定');
+      this.showPop = false;
+      wx.cloud.database().collection('group').add({
+        // data 字段表示需新增的 JSON 数据
+        data: {
+          // _id: 'todo-identifiant-aleatoire', // 可选自定义 _id，在此处场景下用数据库自动分配的就可以了
+
+          name: this.newgroupname },
+
+
+        success: function success(res) {
+          // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+          console.log(res);
+          uni.navigateTo({
+            url: 'admin' });
+
+        } });
+
+    },
+    cancelPop: function cancelPop() {//取消
+      console.log('点击了取消');
+      this.showPop = false;
+    },
+    // 删除
+    clickdelete: function clickdelete(id) {
+      wx.showModal({
+        cancelColor: 'cancelColor',
+        title: "是否确定删除",
+        content: "删除后数据不可恢复，您确定要删除该用户吗？",
+        success: function success(res) {
+          if (res.confirm == true) {
+            console.log('点击确认删除用户', res);
+            wx.cloud.callFunction({
+              name: 'removeData',
+              data: {
+                databaseName: 'admin',
+                id: id,
+                flag: parseInt(2) } }).
+
+            then(function (res) {
+              console.log(res);
+            }).catch(function (err) {
+              console.log(err);
+            });
+            uni.reLaunch({
+              url: './admin' });
+
+          } else if (res.cancel == true) {
+            console.log('点击取消', res);
+          }
+        } });
+
+    },
+    clickchangeID: function clickchangeID(id, ac, name_db, psw_db, group) {
+      uni.navigateTo({
         url: './changeID' });
+
+      uni.setStorage({
+        key: "change_id",
+        data: id });
+
+      uni.setStorage({
+        key: "change_ac",
+        data: ac });
+
+      uni.setStorage({
+        key: "change_name",
+        data: name_db });
+
+      uni.setStorage({
+        key: "change_psw",
+        data: psw_db });
+
+      uni.setStorage({
+        key: "change_group",
+        data: group });
+
 
     },
     clickcreateID: function clickcreateID() {
-      uni.navigateTo(
-      {
+      uni.navigateTo({
         url: './createID' });
-
 
     },
     PickerChange: function PickerChange(e) {
       this.index = e.detail.value;
     },
-    MultiChange: function MultiChange(e) {
-      this.multiIndex = e.detail.value;
-    },
 
-    TimeChange: function TimeChange(e) {
-      this.time = e.detail.value;
-    },
-    DateChange: function DateChange(e) {
-      this.date = e.detail.value;
-    },
-    RegionChange: function RegionChange(e) {
-      this.region = e.detail.value;
-    },
-    SwitchA: function SwitchA(e) {
-      this.switchA = e.detail.value;
-    },
-    SwitchB: function SwitchB(e) {
-      this.switchB = e.detail.value;
-    },
-    SwitchC: function SwitchC(e) {
-      this.switchC = e.detail.value;
-    },
-    SwitchD: function SwitchD(e) {
-      this.switchD = e.detail.value;
-    },
-    RadioChange: function RadioChange(e) {
-      this.radio = e.detail.value;
-    },
-    CheckboxChange: function CheckboxChange(e) {
-      var items = this.checkbox,
-      values = e.detail.value;
-      for (var i = 0, lenI = items.length; i < lenI; ++i) {
-        items[i].checked = false;
-        for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
-          if (items[i].value == values[j]) {
-            items[i].checked = true;
-            break;
-          }
-        }
-      }
-    },
-
-    ViewImage: function ViewImage(e) {
-      uni.previewImage({
-        urls: this.imgList,
-        current: e.currentTarget.dataset.url });
-
-    },
 
     tabSelect: function tabSelect(e) {
       this.TabCur = e.currentTarget.dataset.id;

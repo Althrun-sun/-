@@ -7,7 +7,6 @@
     "pages/admin/admin",
     "pages/notic/notic",
     "pages/document/document",
-    "pages/mydask/mydask",
     "pages/record/record",
     "pages/report/report",
     "pages/check/check",
@@ -21,7 +20,14 @@
     "pages/fix/fix-upload",
     "pages/document/inputbrand",
     "pages/admin/changeID",
-    "pages/admin/createID"
+    "pages/admin/createID",
+    "pages/adminhome/adminhome",
+    "pages/adminfunctions/checkplan/checkplan",
+    "pages/adminfunctions/elevatorDB/elevatorDB",
+    "pages/adminfunctions/mission/mission",
+    "pages/adminfunctions/securityplan/securityplan",
+    "pages/adminfunctions/elevatorDB/newlift",
+    "pages/adminfunctions/elevatorDB/changelift"
   ],
   "subPackages": [],
   "window": {

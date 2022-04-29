@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var tabbar = function tabbar() {__webpack_require__.e(/*! require.ensure | components/tabbar */ "components/tabbar").then((function () {return resolve(__webpack_require__(/*! ../../components/tabbar.vue */ 178));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notic = function notic() {__webpack_require__.e(/*! require.ensure | components/notic */ "components/notic").then((function () {return resolve(__webpack_require__(/*! ../../components/notic.vue */ 183));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var tabbar = function tabbar() {__webpack_require__.e(/*! require.ensure | components/tabbar */ "components/tabbar").then((function () {return resolve(__webpack_require__(/*! ../../components/tabbar.vue */ 216));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var notic = function notic() {__webpack_require__.e(/*! require.ensure | components/notic */ "components/notic").then((function () {return resolve(__webpack_require__(/*! ../../components/notic.vue */ 221));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

@@ -162,6 +162,12 @@
 			"style": {
 				"navigationBarTitleText": "新增电梯信息"
 			}
+		},
+		{
+			"path":"pages/adminfunctions/elevatorDB/changelift",
+			"style": {
+				"navigationBarTitleText": "修改电梯信息"
+			}
 		}
 	],
 	"globalStyle": {

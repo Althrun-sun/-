@@ -123,6 +123,7 @@
 				})
 				console.log("电梯修改id存储为"+id)
 			},
+			// 删除电梯
 			deletelift(id){
 				
 			}
